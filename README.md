@@ -2,6 +2,8 @@
 
 zipstream is a Scala library that uses Play framework's iteratees to stream zip files.
 
+Files in ZIP are NOT compressed. Library can be useful if you want to transfer multiple file at once (download folder).
+
 ## Example
 
 This is an example of Play controller:
