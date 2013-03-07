@@ -1,0 +1,16 @@
+target/
+dist/
+project/boot/
+project/plugins/project/
+project/plugins/src_managed/
+*.log
+*.tmproj
+lib_managed/
+*.iml
+.idea/
+.DS_Store
+.classpath
+.project
+.scala_dependencies
+local.sbt
+project/local_plugins.sbt
