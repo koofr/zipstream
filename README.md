@@ -35,11 +35,20 @@ This is an example of Play controller:
 
 ## Setup
 
-Add following lines to your `build.sbt` or `project/Build.scala` file:
+Add following lines to your `build.sbt` file:
 
-    resolvers += "Koofr Github repo" at "http://koofr.github.com/repo/releases/"
-
+    resolvers += "Koofr Github repo" at "http://koofr.github.com/repo/maven/"
+    
     libraryDependencies += "net.koofr" %% "zipstream" % "0.1"
+    
+    scalaVersion := "2.10.4"
+    
+    libraryDependencies += "play" %% "play-iteratees" % "2.1.0" exclude("org.scala-stm", "scala-stm_2.10")
+    
+    // libraryDependencies += "com.typesafe.play" %% "play-iteratees" % "2.3.1" exclude("org.scala-stm", "scala-stm_2.10")
+    
+    // uncomment next line if you are using the library without Play framework
+    // resolvers += "Typesafe Releases Repository" at "http://repo.typesafe.com/typesafe/releases/"
 
 ## Authors
 
