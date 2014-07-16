@@ -1,12 +1,11 @@
 package net.koofr.zipstream
 
-import scala.concurrent.{Future, Promise}
+import scala.concurrent.{ExecutionContext, Future, Promise}
 import java.util.Date
 import java.util.Calendar
 import java.util.zip.CRC32
 import java.nio.charset.Charset
 import play.api.libs.iteratee._
-import internal._
 import Utils._
 
 case class ZipInfo(filename: Bytes, date: Int, time: Int, compressType: Int,
@@ -147,7 +146,7 @@ case class ZipFileInfo(name: String, isDir: Boolean, modified: Date,
 
 object ZipStream {
 
-  def apply(files: Seq[ZipFileInfo]): Enumerator[Bytes] = {
+  def apply(files: Seq[ZipFileInfo])(implicit executionContext: ExecutionContext): Enumerator[Bytes] = {
     val (filesEn, infosSizeF) = files.foldLeft((Enumerator[Bytes](), Future.successful((Seq[ZipInfo](), 0)))) { case ((totalEn, infosSizeF), file) =>
       val nextF = infosSizeF map { case (infos, offset) =>
         val inf = ZipInfo.apply(file.name, file.modified, file.isDir)
