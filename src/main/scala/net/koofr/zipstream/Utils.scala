@@ -2,9 +2,8 @@ package net.koofr.zipstream
 
 import language.reflectiveCalls
 
-import scala.concurrent.{Future, Promise}
+import scala.concurrent.{ExecutionContext, Future, Promise}
 import play.api.libs.iteratee._
-import internal._
 
 object Utils {
   
@@ -27,7 +26,7 @@ object Utils {
   }
   
   implicit class EnumeratorUtils[E](en: Enumerator[E]) {
-    def fold[S](state: S)(f: (S, E) => S) = {
+    def fold[S](state: S)(f: (S, E) => S)(implicit executionContext: ExecutionContext) = {
       var st = state
       
       val folder = Enumeratee.map[E] { data =>
@@ -44,7 +43,7 @@ object Utils {
       (en &> folder &> onEof, endStateP.future)
     }
     
-    def foldAndThen[S](state: S)(f: (S, E) => S)(endF: S => Enumerator[E]) = {
+    def foldAndThen[S](state: S)(f: (S, E) => S)(endF: S => Enumerator[E])(implicit executionContext: ExecutionContext) = {
       val (foldedEn, endStateF) = fold(state)(f)
       
       val endEn = Enumerator.flatten(endStateF.map(endF))
