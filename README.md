@@ -56,3 +56,7 @@ Add following lines to your `build.sbt` file:
 ## Authors
 
 Crafted by highly motivated engineers at http://koofr.net and, hopefully, making your day just a little bit better.
+
+## Contributors
+
+- Aniket Bhatnagar (https://github.com/aniketbhatnagar)
